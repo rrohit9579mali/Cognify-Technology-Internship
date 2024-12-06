@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Slideshow</title>
+  <style>
+	*body{
+		align-items: center;
+	}
+    .slideshow {
+      width: 500px;
+      height: 300px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .slideshow img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .slideshow-controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .slideshow-controls button {
+      float: left;
+      margin: 10px;
+      padding: 5px 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow">
+    <img src="https://t4.ftcdn.net/jpg/05/60/77/99/240_F_560779904_bebnQMAlXsMGnv6iV9wSvaOTzpJY8v2l.jpg" alt="Image 1">
+    <img src="https://t3.ftcdn.net/jpg/04/47/03/66/240_F_447036650_BwtW5SmAIxgdJxJunRvkiaysLkjgDAFB.jpg" alt="Image 2">
+    <img src="https://t4.ftcdn.net/jpg/03/41/09/93/240_F_341099354_7HG7ktwBIaqj5ojwJ30ITbvWICxOsCLq.jpg" alt="Image 3">
+  </div>
+  <div class="slideshow-controls">
+    <button>Previous</button>
+    <button>Next</button>
+  </div>
+  <script>
+    const slideshow = document.querySelector('.slideshow');
+    const images = slideshow.querySelectorAll('img');
+    const controls = document.querySelector('.slideshow-controls');
+    const prevButton = controls.querySelector('button:first-child');
+    const nextButton = controls.querySelector('button:last-child');
+    let currentImageIndex = 0;
+    function showImage(imageIndex) {
+      images[currentImageIndex].style.display = 'none';
+      images[imageIndex].style.display = 'block';
+      currentImageIndex = imageIndex;
+    }
+    prevButton.addEventListener('click', () => {
+      if (currentImageIndex > 0) {
+        showImage(currentImageIndex - 1);
+      } else {
+        showImage(images.length - 1);
+      }
+    });
+    nextButton.addEventListener('click', () => {
+      if (currentImageIndex < images.length - 1) {
+        showImage(currentImageIndex + 1);
+      } else {
+        showImage(0);
+      }
+    });
+    setInterval(() => {
+      if (currentImageIndex < images.length - 1) {
+        showImage(currentImageIndex + 1);
+      } else {
+        showImage(0);
+      }
+    }, 3000);
+  </script>
+</body>
+</html>
